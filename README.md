@@ -1,4 +1,4 @@
 # TUGAS Pertemuan-6-7
-Virlianisa Ardiamita Nur'aini
+Virlianisa Ardiamita Nur'Aini
 251231015
 WEB APPLICATTON FOR BUSINESS
