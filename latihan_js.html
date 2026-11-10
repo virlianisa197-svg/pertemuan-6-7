@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Latihan JavaScript - Pertemuan 6-7</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: white;
+      transition: background-color 0.3s;
+    }
+    section {
+      background: #ffffffcc;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 0 auto 20px auto;
+      max-width: 450px;
+    }
+    h2 { margin-top: 0; font-size: 18px; color: #1f5fa6; }
+    label { display: block; margin-top: 10px; }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 12px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .error { color: red; font-size: 13px; min-height: 16px; }
+    .sukses { color: green; font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LATIHAN 1: Ubah Warna Background ===== -->
+  <section>
+    <h2>Latihan 1 - Ubah Warna Background</h2>
+    <button id="btnWarna">Ganti Warna</button>
+  </section>
+
+  <!-- ===== LATIHAN 2: Tampilkan Nama Mahasiswa ===== -->
+  <section>
+    <h2>Latihan 2 - Tampilkan Nama Mahasiswa</h2>
+    <label for="inputNama">Nama:</label>
+    <input type="text" id="inputNama" placeholder="Masukkan nama">
+    <button id="btnSapa">Tampilkan</button>
+    <p id="sapaan"></p>
+  </section>
+
+  <!-- ===== LATIHAN 3: Validasi Form Login ===== -->
+  <section>
+    <h2>Latihan 3 - Validasi Form Login</h2>
+    <form id="formLogin" novalidate>
+      <label for="username">Username:</label>
+      <input type="text" id="username">
+      <div class="error" id="errUsername"></div>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password">
+      <div class="error" id="errPassword"></div>
+
+      <button type="submit">Login</button>
+    </form>
+    <p class="sukses" id="pesanLogin"></p>
+  </section>
+
+  <script>
+    // ===== LATIHAN 1 =====
+    // 1. Array warna
+    const warna = ['white', 'lightblue', 'yellow'];
+    // 2. Variabel index warna yang sedang aktif
+    let indexWarna = 0;
+
+    document.getElementById('btnWarna').addEventListener('click', function () {
+      // 3. Setiap klik, tambah index (kembali ke 0 jika sudah di akhir array)
+      indexWarna = (indexWarna + 1) % warna.length;
+      // 4. Terapkan warna ke background halaman
+      document.body.style.backgroundColor = warna[indexWarna];
+    });
+
+    // ===== LATIHAN 2 =====
+    document.getElementById('btnSapa').addEventListener('click', function () {
+      const nama = document.getElementById('inputNama').value.trim();
+      const sapaan = document.getElementById('sapaan');
+
+      if (nama === '') {
+        sapaan.textContent = 'Nama belum diisi.';
+      } else {
+        // Manipulasi DOM: ubah teks elemen <p>
+        sapaan.textContent = 'Halo, ' + nama + '!';
+      }
+    });
+
+    // ===== LATIHAN 3 =====
+    document.getElementById('formLogin').addEventListener('submit', function (e) {
+      e.preventDefault(); // cegah form dikirim ke server
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errUsername = document.getElementById('errUsername');
+      const errPassword = document.getElementById('errPassword');
+      const pesanLogin = document.getElementById('pesanLogin');
+
+      // Reset pesan sebelumnya
+      errUsername.textContent = '';
+      errPassword.textContent = '';
+      pesanLogin.textContent = '';
+
+      let valid = true;
+
+      // Username tidak boleh kosong
+      if (username === '') {
+        errUsername.textContent = 'Username tidak boleh kosong.';
+        valid = false;
+      }
+
+      // Password minimal 8 karakter
+      if (password.length < 8) {
+        errPassword.textContent = 'Password minimal 8 karakter.';
+        valid = false;
+      }
+
+      // Jika valid, tampilkan pesan berhasil di halaman
+      if (valid) {
+        pesanLogin.textContent = 'Login berhasil!';
+      }
+    });
+  </script>
+</body>
+</html>
